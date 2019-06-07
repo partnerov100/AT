@@ -18,6 +18,7 @@ target/
 build/
 
 # Other
+allure-results/
 *.log
 **/classes/*
 catalina.*/
