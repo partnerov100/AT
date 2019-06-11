@@ -13,6 +13,10 @@ import java.util.Properties;
 
 public class Props {
 
+    private Props() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static String getFileProperties(String name, String key) {

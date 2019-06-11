@@ -1,14 +1,20 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.testng.TextReport;
+import com.codeborne.selenide.testng.annotations.Report;
 import org.testng.Assert;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.testng.annotations.Listeners;
+import utils.DatePicker;
 
 import static com.codeborne.selenide.Selenide.$;
 
+@Report
+@Listeners({TextReport.class})
 public class HomePage {
-
+    private String fDay = DatePicker.getDate();
     private SelenideElement searchForm = $(By.xpath("//div[@class='search-form']"));
     private SelenideElement dropdownDialog = searchForm.$(By.xpath("//div[@class='ui-dropdown-dialog']"));
     private SelenideElement fromCity = searchForm.find(By.xpath("//button[contains(@class, 'ignore-from')]"));
@@ -20,6 +26,9 @@ public class HomePage {
     private SelenideElement popularCity = cityList.$(By.xpath("//div[text()[contains(.,'Популярные города')]]"));
     private SelenideElement loader = cityList.$(By.xpath("//div[text()[contains(.,'Загрузка...')]]"));
     private SelenideElement focusedItem = cityList.$(By.xpath("//div[contains(@class, 'option--isFocused')]"));
+    private SelenideElement dayToday = dropdownDialog.$(By.xpath("//div[contains(@class, 'Day--today')]"));
+    private SelenideElement futureDay = dropdownDialog.$(By.xpath("//div[contains(@aria-label, '"+fDay+"')]"));
+
 
     public HomePage chooseFromCity() {
         fromCity.click();
@@ -29,7 +38,8 @@ public class HomePage {
         focusedItem.click();
         return this;
     }
-    public HomePage chooseToCity()  {
+
+    public HomePage chooseToCity() {
         toCity.click();
         input.setValue("Нур-Султан");
         loader.waitWhile(Condition.disabled, 5000);
@@ -37,5 +47,12 @@ public class HomePage {
         focusedItem.click();
         return this;
     }
+
+    public HomePage chooseTomorrow()  {
+        fromDate.click();
+        futureDay.click();
+        return this;
+    }
+
 
 }
