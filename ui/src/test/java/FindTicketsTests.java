@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.open;
 
 @Report
 @Listeners({TextReport.class})
-public class FirstTest extends Config {
+public class FindTicketsTests extends Config {
 
     @Test
     public void homePageTest() throws InterruptedException {
@@ -16,7 +16,11 @@ public class FirstTest extends Config {
         HomePage homePage = open(webUrl, HomePage.class);
         homePage.chooseFromCity()
                 .chooseToCity()
-                .chooseTomorrow();
+                .chooseTomorrow()
+                .chooseTransport()
+                .search()
+                .waitRoutes()
+                .setDirectRoutes();
 
         Thread.sleep(5000);
 

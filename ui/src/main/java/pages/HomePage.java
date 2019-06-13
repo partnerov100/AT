@@ -28,7 +28,11 @@ public class HomePage {
     private SelenideElement focusedItem = cityList.$(By.xpath("//div[contains(@class, 'option--isFocused')]"));
     private SelenideElement dayToday = dropdownDialog.$(By.xpath("//div[contains(@class, 'Day--today')]"));
     private SelenideElement futureDay = dropdownDialog.$(By.xpath("//div[contains(@aria-label, '"+fDay+"')]"));
-
+    private SelenideElement busButton = dropdownDialog.$(By.xpath("//div[.='Автобус']/parent::button"));
+    private SelenideElement trainButton = dropdownDialog.$(By.xpath("//div[.='Поезд']/parent::button"));
+    private SelenideElement airplainButton = dropdownDialog.$(By.xpath("//div[.='Самолёт']/parent::button"));
+    private SelenideElement chooseTransportBtn = dropdownDialog.$(By.xpath("//button[.='Готово']"));
+    private SelenideElement searchBtn = $(By.xpath("//button[@id='searchSubmit']"));
 
     public HomePage chooseFromCity() {
         fromCity.click();
@@ -54,5 +58,16 @@ public class HomePage {
         return this;
     }
 
+    public HomePage chooseTransport() {
+        transport.click();
+        airplainButton.click();
+        chooseTransportBtn.click();
+        return this;
+    }
+
+    public TimetablePage search() {
+        searchBtn.click();
+        return new TimetablePage();
+    }
 
 }

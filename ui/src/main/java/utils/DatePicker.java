@@ -33,7 +33,7 @@ public class DatePicker {
             logger.error(e.toString());
         }
         calendar.add(Calendar.DATE, 1);  // number of days to add
-        strDate = dateFormat.format(calendar.getTime());  // dt is now the new date
+        strDate = dateFormat.format(calendar.getTime());  // strDate is now the new date
         String stringDate = strDate.replaceAll("\\.","");
         logger.info(stringDate);
         return stringDate;
