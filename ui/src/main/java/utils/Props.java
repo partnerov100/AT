@@ -35,8 +35,8 @@ public class Props {
     public static String getURLs(String key) {
         String server = System.getProperty("server");
         if(server==null) {
-            System.setProperty("server", "dev");
-            server = "dev";
+            System.setProperty("server", "stage");
+            server = "stage";
         }
         return getFileProperties(server, key);
     }

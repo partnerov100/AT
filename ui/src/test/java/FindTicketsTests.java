@@ -20,7 +20,9 @@ public class FindTicketsTests extends Config {
                 .chooseTransport()
                 .search()
                 .waitRoutes()
-                .setDirectRoutes();
+                .setDirectRoutes()
+                .scrollDown()
+        .findRoute();
 
         Thread.sleep(5000);
 

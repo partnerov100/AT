@@ -34,7 +34,7 @@ public class DatePicker {
         }
         calendar.add(Calendar.DATE, 1);  // number of days to add
         strDate = dateFormat.format(calendar.getTime());  // strDate is now the new date
-        String stringDate = strDate.replaceAll("\\.","");
+        String stringDate = strDate.replaceAll("\\.","").toLowerCase();
         logger.info(stringDate);
         return stringDate;
     }
