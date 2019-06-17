@@ -15,14 +15,15 @@ public class FindTicketsTests extends Config {
 
         HomePage homePage = open(webUrl, HomePage.class);
         homePage.chooseFromCity()
-                .chooseToCity()
-                .chooseTomorrow()
-                .chooseTransport()
-                .search()
-                .waitRoutes()
-                .setDirectRoutes()
-                .scrollDown()
-        .findRoute();
+            .chooseToCity()
+            .chooseTomorrow()
+            .chooseTransport()
+            .search()
+            .waitRoutes()
+            .setDirectRoutes()
+            .scrollDown()
+            .findRoute()
+            .buyTicket();
 
         Thread.sleep(5000);
 

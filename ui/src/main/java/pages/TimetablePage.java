@@ -3,26 +3,32 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.ex.ElementNotFound;
 import org.openqa.selenium.By;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utils.Props;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class TimetablePage {
-    private int k = 0;
+    private static String routeTitleStr = Props.getData("routeTitle");
+    private static String routeNameStr = Props.getData("routeFullName");
+    private static final Logger logger = LoggerFactory.getLogger(TimetablePage.class.getName());
     private SelenideElement loader = $(By.xpath("//div[@role='PageLoaderComponent']"));
     private ElementsCollection ourRoutes = $$(By.xpath("//div[contains(@class, 'route_can-buy')]"));
     private ElementsCollection allRoutes = $$(By.xpath("//div[@class='timetable-route__container']"));
     private SelenideElement transfer = $(By.xpath("//button[.='Пересадки']"));
-    private SelenideElement directCheckbox = transfer.find(By.xpath("//label[.='Прямой']"));
+    private SelenideElement directCheckbox = transfer.find(By.xpath("//label[.='Прямой']//input"));
+    private SelenideElement oneTransferChkbox = transfer.find(By.xpath("//label[.='1 пересадка']//input"));
     private SelenideElement transferReady = transfer.find(By.xpath("//button[.='Готово']"));
     private SelenideElement scrollLoader = $(By.xpath("//div[@class='loader-horizontal']"));
-    private ElementsCollection routesByTitle = $$(By.xpath("//div[@title='SCAT']"));
-//    private SelenideElement routeByTitle = $(By.xpath("//div[@title='SCAT']["+k+"]"));
-    private SelenideElement routeName = $(By.xpath("//div[text()[contains(.,'DV-755, Boeing 737, Регулярный')]]"));
+    private ElementsCollection routesByTitle = $$(By.xpath("//div[@title='"+routeTitleStr+"']"));
+    private SelenideElement routeName = $(By.xpath("//div[text()[contains(.,'"+ routeNameStr +"')]]"));
     private SelenideElement buyTicket = $(By.xpath("//div[text()[contains(.,'Купить маршрут')]]"));
-    private SelenideElement hideDetails = $(By.xpath("//div[text()[contains(.,'Купить маршрут')]]"));
-    //*[.='"Купить маршрут"']   //span[.='Скрыть детали']
+    private SelenideElement hideDetails = $(By.xpath("//span[text()[contains(.,'Скрыть детали')]]"));
+    private SelenideElement route = $(By.xpath("//div[@title='Air Astana'][1]"));
 
 
     public TimetablePage waitRoutes(){
@@ -31,46 +37,59 @@ public class TimetablePage {
         return this;
     }
 
-    public TimetablePage setDirectRoutes(){
+    /**
+     * Оставляем только прямые маршруты
+     */
+    public TimetablePage setDirectRoutes() throws ElementNotFound {
         transfer.click();
-        directCheckbox.click();
+        oneTransferChkbox.click();
+        oneTransferChkbox.shouldNotBe(Condition.checked);
+        directCheckbox.shouldBe(Condition.checked);
         transferReady.click();
+        try{
+            loader.waitUntil(Condition.enabled, 2000);
+            loader.waitWhile(Condition.enabled, 5000);
+        } catch (ElementNotFound e) {
+            logger.error(e.toString());
+        }
         return this;
     }
 
-    public TimetablePage scrollDown(){
+    /**
+     * Скролл списка пока не исчезнет loader
+     */
+    public TimetablePage scrollDown() throws InterruptedException {
         while(scrollLoader.isDisplayed()){
             try{
             scrollLoader.scrollTo();
-
-                Thread.sleep(150);
-            } catch (InterruptedException ignored) {
-//                e.printStackTrace();
+            Thread.sleep(150);
+            } catch (ElementNotFound e) {
+                logger.error(e.toString());
             }
             if(!scrollLoader.isDisplayed()){
                 break;
             }
         }
-
         return this;
     }
-//    route-trip-name
-//    DV-755, Boeing 737, Регулярный
-    public void findRoute(){
-        for(int i =1; i<routesByTitle.size()+1; i++){
-            SelenideElement routeByTitle = $(By.xpath("//div[@title='SCAT']["+i+"]"));
-//            routesByTitle.get(i)
-            routeByTitle
-                    .scrollTo()
+
+    public Cart findRoute(){
+        for(int i =0; i<routesByTitle.size(); i++){
+            routesByTitle.get(i)
+                .scrollIntoView("{block: \"end\"}")
+                .click();
+            if(routeName.exists()) {
+                i = routesByTitle.size();
+            } else {
+                hideDetails
+                    .scrollIntoView("{block: \"end\"}")
                     .click();
-            if(routeName.exists()){
-                i=routesByTitle.size()+1;
-            }
-            else {
-                hideDetails.click();
             }
         }
-        buyTicket.click();
+        buyTicket
+                .scrollTo()
+                .click();
+        return new Cart();
     }
 
 

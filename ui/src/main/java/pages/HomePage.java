@@ -32,6 +32,7 @@ public class HomePage {
     private SelenideElement trainButton = dropdownDialog.$(By.xpath("//div[.='Поезд']/parent::button"));
     private SelenideElement airplainButton = dropdownDialog.$(By.xpath("//div[.='Самолёт']/parent::button"));
     private SelenideElement chooseTransportBtn = dropdownDialog.$(By.xpath("//button[.='Готово']"));
+    private SelenideElement cookieBtn = $(By.xpath("//button[.='Я согласен(-на)']"));
     private SelenideElement searchBtn = $(By.xpath("//button[@id='searchSubmit']"));
 
     public HomePage chooseFromCity() {
@@ -66,6 +67,7 @@ public class HomePage {
     }
 
     public TimetablePage search() {
+        cookieBtn.click();
         searchBtn.click();
         return new TimetablePage();
     }
