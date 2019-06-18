@@ -11,16 +11,20 @@ public class Cart {
 
     private SelenideElement hideDetails = $(By.xpath("//div[text()[contains(.,'Скрыть детали')]]"));
     private SelenideElement showDetails = $(By.xpath("//div[text()[contains(.,'Показать детали')]]"));
-    private static String routeNameStr = Props.getData("routeFullName");
-    private SelenideElement routeName = $(By.xpath("//div[text()[contains(.,'"+ routeNameStr +"')]]"));
     private SelenideElement buyTicket = $(By.xpath("//div[text()[contains(.,'Купить билет')]]"));
+    private SelenideElement price = $(By.xpath("//div[contains(@class, 'container__price')]"));
 
-    public void buyTicket(){
+    public Cart buyTicket(String routeInfo){
         showDetails.click();
-        routeName.shouldBe(Condition.visible);
+        $(By.xpath("//div[text()[contains(.,'"+ routeInfo +"')]]")).shouldBe(Condition.visible);
+//        routeName.shouldBe(Condition.visible);
         hideDetails.click();
         buyTicket.click();
+        return this;
+    }
 
+    public String getPrice() {
+        return price.getText();
     }
 
 }

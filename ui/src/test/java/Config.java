@@ -57,6 +57,7 @@ public class Config {
 
     @AfterClass
     public void tearDown() {
+        WebDriverRunner.getWebDriver().getCurrentUrl();
         WebDriverRunner.getWebDriver().close();
         WebDriverRunner.closeWebDriver();
     }

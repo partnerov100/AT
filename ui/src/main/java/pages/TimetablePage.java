@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class TimetablePage {
+    private static String blockEnd = "{block: \"end\"}";
     private static String routeTitleStr = Props.getData("routeTitle");
     private static String routeNameStr = Props.getData("routeFullName");
     private static final Logger logger = LoggerFactory.getLogger(TimetablePage.class.getName());
@@ -26,13 +27,14 @@ public class TimetablePage {
     private SelenideElement scrollLoader = $(By.xpath("//div[@class='loader-horizontal']"));
     private ElementsCollection routesByTitle = $$(By.xpath("//div[@title='"+routeTitleStr+"']"));
     private SelenideElement routeName = $(By.xpath("//div[text()[contains(.,'"+ routeNameStr +"')]]"));
-    private SelenideElement buyTicket = $(By.xpath("//div[text()[contains(.,'Купить маршрут')]]"));
+    private SelenideElement buyRoute = $(By.xpath("//div[text()[contains(.,'Купить маршрут')]]"));
     private SelenideElement hideDetails = $(By.xpath("//span[text()[contains(.,'Скрыть детали')]]"));
-    private SelenideElement route = $(By.xpath("//div[@title='Air Astana'][1]"));
+    private SelenideElement routeDescription = $(By.xpath("//div[contains(@class, 'item__container__description')]"));
+    private SelenideElement openPrice = $(By.xpath("//span[contains(@class, 'price--isOpened')]"));
 
 
     public TimetablePage waitRoutes(){
-        loader.waitWhile(Condition.enabled, 30000);
+        loader.waitWhile(Condition.enabled, 60000);
         ourRoutes.last().waitUntil(Condition.enabled, 10000);
         return this;
     }
@@ -73,23 +75,36 @@ public class TimetablePage {
         return this;
     }
 
-    public Cart findRoute(){
+    public void findRoute(){
         for(int i =0; i<routesByTitle.size(); i++){
             routesByTitle.get(i)
-                .scrollIntoView("{block: \"end\"}")
+                .scrollIntoView(blockEnd)
                 .click();
             if(routeName.exists()) {
                 i = routesByTitle.size();
             } else {
                 hideDetails
-                    .scrollIntoView("{block: \"end\"}")
+                    .scrollIntoView(blockEnd)
                     .click();
             }
         }
-        buyTicket
-                .scrollTo()
-                .click();
-        return new Cart();
+    }
+
+    public String getRouteDetails(){
+        routesByTitle.first()
+            .scrollIntoView(blockEnd)
+            .click();
+        return routeDescription.getText();
+    }
+
+    public String getPrice() {
+        return openPrice.getText();
+    }
+
+    public String buyRoute() {
+        String price = getPrice().replace("от ", "");
+        buyRoute.scrollTo().click();
+        return price;
     }
 
 
