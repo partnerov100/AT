@@ -21,9 +21,9 @@ public class TimetablePage {
     private ElementsCollection ourRoutes = $$(By.xpath("//div[contains(@class, 'route_can-buy')]"));
     private ElementsCollection allRoutes = $$(By.xpath("//div[@class='timetable-route__container']"));
     private SelenideElement transfer = $(By.xpath("//button[.='Пересадки']"));
-    private SelenideElement directCheckbox = transfer.find(By.xpath("//label[.='Прямой']//input"));
-    private SelenideElement oneTransferChkbox = transfer.find(By.xpath("//label[.='1 пересадка']//input"));
-    private SelenideElement transferReady = transfer.find(By.xpath("//button[.='Готово']"));
+    private SelenideElement directCheckbox = $(By.xpath("//label[.='Прямой']//input"));
+    private SelenideElement oneTransferChkbox = $(By.xpath("//label[.='1 пересадка']//input"));
+    private SelenideElement transferReady = $(By.xpath("//button[.='Готово']"));
     private SelenideElement scrollLoader = $(By.xpath("//div[@class='loader-horizontal']"));
     private ElementsCollection routesByTitle = $$(By.xpath("//div[@title='"+routeTitleStr+"']"));
     private SelenideElement routeName = $(By.xpath("//div[text()[contains(.,'"+ routeNameStr +"')]]"));

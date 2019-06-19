@@ -37,7 +37,10 @@ public class FindTicketsTests extends Config {
         price = Converter.spaceToNbsp(price);
         String bookingDescr = booking.checkPrice(price).getDescription();
         assertEquals(routeDescr, bookingDescr);
-        booking.checkChoosenTariff(price);
+        booking.checkFirstTariff(price)
+            .changeToSecondTariff()
+            .nextPage();
+
         Thread.sleep(5000);
     }
 
