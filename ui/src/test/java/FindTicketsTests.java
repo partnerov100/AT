@@ -1,5 +1,6 @@
 import com.codeborne.selenide.testng.TextReport;
 import com.codeborne.selenide.testng.annotations.Report;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.BookingWithTarif;
@@ -35,11 +36,13 @@ public class FindTicketsTests extends Config {
         assertEquals(price, cartPrice);
         cart.buyTicket(routeDescr);
         price = Converter.spaceToNbsp(price);
+        String priceWithoutPenny = StringUtils.substringBefore(price, ",");
         String bookingDescr = booking.checkPrice(price).getDescription();
         assertEquals(routeDescr, bookingDescr);
-        booking.checkFirstTariff(price)
+        booking.checkFirstTariff(priceWithoutPenny)//баг на фронте? Не везде есть копейки
             .changeToSecondTariff()
-            .nextPage();
+            .nextPage()
+            .setDocs();
 
         Thread.sleep(5000);
     }

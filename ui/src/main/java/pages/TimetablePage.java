@@ -103,7 +103,7 @@ public class TimetablePage {
 
     public String buyRoute() {
         String price = getPrice().replace("от ", "");
-        buyRoute.scrollTo().click();
+        buyRoute.scrollIntoView(blockEnd).click();
         return price;
     }
 

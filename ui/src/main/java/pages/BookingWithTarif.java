@@ -22,7 +22,7 @@ public class BookingWithTarif {
     private ElementsCollection pricesHeader = $$(By.xpath(headerPrice));
     private ElementsCollection tarifHeader = $$(By.xpath("//div[@class='avia-rate-header']"));
     private ElementsCollection сhoseBtns = $$(By.xpath(choseBtn));
-    private SelenideElement generalPrice = $(By.xpath("//div[contains(@class, 'general-price')]"));
+    private static SelenideElement generalPrice = $(By.xpath("//div[contains(@class, 'general-price')]"));
     private SelenideElement nextBtn = $(By.xpath("//button[.='Далее']"));
 
     public BookingWithTarif checkPrice(String price) {
@@ -35,16 +35,17 @@ public class BookingWithTarif {
         return routeDescription.getText();
     }
 
-    public void nextPage(){
+    public Documents nextPage(){
         nextBtn.scrollTo().click();
+        return new Documents();
     }
 
     @Step("Выбор другого тарифа с проверкой изменения цены")
     public BookingWithTarif changeToSecondTariff() {
         String secondPrice = $(By.xpath(headerPrice+"[2]")).getText();
         footers.get(2).$x(choseBtn).click();
-        String generalPriceTxt = generalPrice.getText().replace("Итого: ", "");
-        CustomAssert.assertEquals(secondPrice, generalPriceTxt);
+        String totalPrice = generalPrice.getText().replace("Итого: ", "");
+        CustomAssert.assertEquals(secondPrice, totalPrice);
         return this;
     }
 
