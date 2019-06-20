@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class Config {
 
-    protected final String webUrl = Props.getURLs("webUrl");
+    protected final String webUrl = Props.getEnvData("webUrl");
 
     public static String getRunType() {
         String runType = System.getProperty("runType");

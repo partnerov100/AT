@@ -13,10 +13,6 @@ import java.util.Properties;
 
 public class Props {
 
-    private Props() {
-        throw new IllegalStateException("Utility class");
-    }
-
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static String getFileProperties(String name, String key) {
@@ -32,10 +28,10 @@ public class Props {
         return text;
     }
 
-    public static String getURLs(String key) {
+    public static String getEnvData(String key) {
         String server = System.getProperty("server");
         if(server==null) {
-            server = "dev";
+            server = "stage";
             System.setProperty("server", server);
         }
         return getFileProperties(server, key);
