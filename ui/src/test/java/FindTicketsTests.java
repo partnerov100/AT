@@ -3,10 +3,7 @@ import com.codeborne.selenide.testng.annotations.Report;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.BookingWithTarif;
-import pages.Cart;
-import pages.HomePage;
-import pages.TimetablePage;
+import pages.*;
 import utils.Converter;
 
 import static org.testng.Assert.assertEquals;
@@ -48,14 +45,11 @@ public class FindTicketsTests extends Config {
     }
 
     @Test
-    public void Test1(){
-        open("https://stage.movista.ru/cart?uid=001d929e-9e0e-4766-b1f4-f105722b8c98");
-        Cart cart = new Cart();
-        String price = cart.getPrice();
-        price = Converter.spaceToNbsp(price);
-        System.out.println(price);
-//        cart.buyTicket();
-        new BookingWithTarif().checkPrice(price);
+    public void Test1() throws InterruptedException {
+        open("http://web-tmp.dev-k8s.movista.ru/booking?uid=16bcb455-2e65-46d3-9765-c1e5535f7b2a");
+        new BookingWithTarif().nextPage();
+        new Documents().setDocs();
+        Thread.sleep(5000);
     }
 
 }

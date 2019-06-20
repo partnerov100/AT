@@ -35,6 +35,8 @@ public class HomePage {
     private SelenideElement cookieBtn = $(By.xpath("//button[.='Я согласен(-на)']"));
     private SelenideElement searchBtn = $(By.xpath("//button[@id='searchSubmit']"));
 
+
+
     public HomePage chooseFromCity() {
         fromCity.click();
         input.setValue("Москва");
