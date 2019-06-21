@@ -16,6 +16,7 @@ public class TimetablePage {
     private static String blockEnd = "{block: \"end\"}";
     private static String routeTitleStr = Props.getData("routeTitle");
     private static String routeNameStr = Props.getData("routeFullName");
+    private static String openRouteStr = "//div[contains(@class, 'route--isOpened')]";
     private static final Logger logger = LoggerFactory.getLogger(TimetablePage.class.getName());
     private SelenideElement loader = $(By.xpath("//div[@role='PageLoaderComponent']"));
     private ElementsCollection ourRoutes = $$(By.xpath("//div[contains(@class, 'route_can-buy')]"));
@@ -31,9 +32,10 @@ public class TimetablePage {
     private SelenideElement hideDetails = $(By.xpath("//span[text()[contains(.,'Скрыть детали')]]"));
     private SelenideElement routeDescription = $(By.xpath("//div[contains(@class, 'item__container__description')]"));
     private SelenideElement openPrice = $(By.xpath("//span[contains(@class, 'price--isOpened')]"));
+    private SelenideElement openRouteTitle = $(By.xpath(openRouteStr+"//div[contains(@class, 'name__item__title')]"));
 
 
-    public TimetablePage waitRoutes(){
+    private TimetablePage waitRoutes(){
         loader.waitWhile(Condition.enabled, 60000);
         ourRoutes.last().waitUntil(Condition.enabled, 10000);
         return this;
@@ -43,6 +45,7 @@ public class TimetablePage {
      * Оставляем только прямые маршруты
      */
     public TimetablePage setDirectRoutes() throws ElementNotFound {
+        waitRoutes();
         transfer.click();
         oneTransferChkbox.click();
         oneTransferChkbox.shouldNotBe(Condition.checked);
@@ -101,6 +104,9 @@ public class TimetablePage {
         return openPrice.getText();
     }
 
+    /**
+     * Купить маршрут и запомнить цену
+     */
     public String buyRoute() {
         String price = getPrice().replace("от ", "");
         buyRoute.scrollIntoView(blockEnd).click();

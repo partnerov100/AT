@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 public class CustomAssert {
+    private CustomAssert(){
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(CustomAssert.class.getName());
 

@@ -1,10 +1,11 @@
 import com.codeborne.selenide.testng.TextReport;
 import com.codeborne.selenide.testng.annotations.Report;
-import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.Converter;
+
+import java.sql.SQLException;
 
 import static org.testng.Assert.assertEquals;
 import static com.codeborne.selenide.Selenide.open;
@@ -24,7 +25,6 @@ public class FindTicketsTests extends Config {
                 .chooseTomorrow()
                 .chooseTransport()
                 .search()
-                .waitRoutes()
                 .setDirectRoutes()
                 .scrollDown()
                 .getRouteDetails();
@@ -33,22 +33,26 @@ public class FindTicketsTests extends Config {
         assertEquals(price, cartPrice);
         cart.buyTicket(routeDescr);
         price = Converter.spaceToNbsp(price);
-        String priceWithoutPenny = StringUtils.substringBefore(price, ",");
+        String priceWithoutPenny = Converter.hidePenny(price);
         String bookingDescr = booking.checkPrice(price).getDescription();
         assertEquals(routeDescr, bookingDescr);
         booking.checkFirstTariff(priceWithoutPenny)//баг на фронте? Не везде есть копейки
             .changeToSecondTariff()
             .nextPage()
-            .setDocs();
+            .confirmPhone()
+            .setDocs()
+            .submit();
 
         Thread.sleep(5000);
     }
 
     @Test
-    public void Test1() throws InterruptedException {
+    public void Test1() throws InterruptedException, SQLException {
+
         open("http://web-tmp.dev-k8s.movista.ru/booking?uid=16bcb455-2e65-46d3-9765-c1e5535f7b2a");
-        new BookingWithTarif().nextPage();
-        new Documents().setDocs();
+        Converter.hidePenny("5 923,78 ₽");
+//        new BookingWithTarif().nextPage();
+//        new Documents().setDocs();
         Thread.sleep(5000);
     }
 

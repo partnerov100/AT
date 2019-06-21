@@ -17,7 +17,6 @@ public class Cart {
     public Cart buyTicket(String routeInfo){
         showDetails.click();
         $(By.xpath("//div[text()[contains(.,'"+ routeInfo +"')]]")).shouldBe(Condition.visible);
-//        routeName.shouldBe(Condition.visible);
         hideDetails.click();
         buyTicket.click();
         return this;

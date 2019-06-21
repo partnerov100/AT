@@ -1,12 +1,19 @@
 package utils;
 
+import jdk.swing.interop.SwingInterOpUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.CheckForNull;
 import java.lang.invoke.MethodHandles;
 import java.sql.*;
+import java.util.Objects;
 
-public class PostgreSQL {
+public final class PostgreSQL {
+    private PostgreSQL(){
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -21,7 +28,7 @@ public class PostgreSQL {
 
     private static Connection connection;
 
-    public synchronized static Connection getInstance() {
+    private static Connection getInstance() {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(host, username, password);
@@ -33,16 +40,33 @@ public class PostgreSQL {
         return connection;
     }
 
-    public static void findCode(String num) throws SQLException {
-
+    public static String getCode() {
+        String sqlRequest = "SELECT \"Text\" FROM NOTIFY.\"Message\" WHERE \"MessageType\" IN (E'2') ORDER BY \"Id\" DESC LIMIT 1;";
+        ResultSet resultSet;
+        String text = null;
         try {
             Statement statement = getInstance().createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from notify.message where lastid = '" + num + "'");
+            resultSet = statement.executeQuery(sqlRequest);
             resultSet.next();
-
-        } catch (NullPointerException e) {
+            text = Objects.requireNonNull(resultSet).getString("Text");
+        } catch (NullPointerException|SQLException e) {
             logger.error(e.toString());
         }
+        return StringUtils.substringAfter(text, ": ");
+    }
+
+    public static String waitNewCode(String oldCode){
+        String newCode = oldCode;
+        while(oldCode.equals(newCode)){
+            try {
+                Thread.sleep(700);
+            } catch (Exception e) {
+                logger.error(e.toString());
+            }
+            newCode = getCode();
+        }
+        return newCode;
+
 
     }
 }
