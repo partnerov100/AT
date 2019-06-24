@@ -32,9 +32,9 @@ public class DatePicker {
         } catch (ParseException e) {
             logger.error(e.toString());
         }
-        calendar.add(Calendar.DATE, 1);  // number of days to add
-        strDate = dateFormat.format(calendar.getTime());  // strDate is now the new date
-        String stringDate = strDate.replaceAll("\\.","").toLowerCase();
+        calendar.add(Calendar.DATE, 1);  //дней добавлено к текущей дате
+        strDate = dateFormat.format(calendar.getTime());
+        String stringDate = strDate.replaceAll("\\.","").toLowerCase(); //приводим к нужному формату
         logger.info(stringDate);
         return stringDate;
     }

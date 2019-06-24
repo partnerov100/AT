@@ -19,16 +19,13 @@ public class FindTicketsTests extends Config {
         Cart cart = new Cart();
         TimetablePage timetable = new TimetablePage();
         BookingWithTarif booking = new BookingWithTarif();
+        PrepaidPage prepaidPage = new PrepaidPage();
+        SberbankPage sberPage = new SberbankPage();
         HomePage homePage = open(webUrl, HomePage.class);
-        String routeDescr = homePage.chooseFromCity()
-                .chooseToCity()
-                .chooseTomorrow()
-                .chooseTransport()
-                .search()
-                .setDirectRoutes()
-                .scrollDown()
-                .getRouteDetails();
+        String routeDescr = homePage.setBaseInformation()
+            .setDirectRoutes().getRouteDetails();
         String price = timetable.buyRoute();
+        String routeInfo = timetable.getRouteInfo();
         String cartPrice = cart.getPrice();
         assertEquals(price, cartPrice);
         cart.buyTicket(routeDescr);
@@ -36,14 +33,18 @@ public class FindTicketsTests extends Config {
         String priceWithoutPenny = Converter.hidePenny(price);
         String bookingDescr = booking.checkPrice(price).getDescription();
         assertEquals(routeDescr, bookingDescr);
-        booking.checkFirstTariff(priceWithoutPenny)//баг на фронте? Не везде есть копейки
-            .changeToSecondTariff()
-            .nextPage()
+        booking.checkFirstTariff(priceWithoutPenny);//баг на фронте? Не везде есть копейки
+        String secondPrice = booking.changeToSecondTariff();
+        booking.nextPage()
             .confirmPhone()
             .setDocs()
             .submit();
-
-        Thread.sleep(5000);
+        prepaidPage.checkPrice(secondPrice);
+        prepaidPage.toPay(routeInfo);
+        sberPage.checkPrice(secondPrice).setCardAndPay();
+        SucessfulOrder orderPage = new SucessfulOrder();
+        orderPage.checkCongratsText();
+        Thread.sleep(15000);
     }
 
     @Test

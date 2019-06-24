@@ -35,7 +35,14 @@ public class HomePage {
     private SelenideElement cookieBtn = $(By.xpath("//button[.='Я согласен(-на)']"));
     private SelenideElement searchBtn = $(By.xpath("//button[@id='searchSubmit']"));
 
-
+    public TimetablePage setBaseInformation(){
+        chooseFromCity()
+                .chooseToCity()
+                .chooseTomorrow()
+                .chooseTransport()
+                .search();
+        return new TimetablePage();
+    }
 
     public HomePage chooseFromCity() {
         fromCity.click();

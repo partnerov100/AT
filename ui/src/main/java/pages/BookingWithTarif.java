@@ -41,12 +41,12 @@ public class BookingWithTarif {
     }
 
     @Step("Выбор другого тарифа с проверкой изменения цены")
-    public BookingWithTarif changeToSecondTariff() {
+    public String changeToSecondTariff() {
         String secondPrice = $(By.xpath(headerPrice+"[2]")).getText();
         footers.get(2).$x(choseBtn).click();
         String totalPrice = generalPrice.getText().replace("Итого: ", "");
         CustomAssert.assertEquals(secondPrice, totalPrice);
-        return this;
+        return secondPrice;
     }
 
     public BookingWithTarif checkFirstTariff(String price) {

@@ -34,6 +34,9 @@ public class TimetablePage {
     private SelenideElement openPrice = $(By.xpath("//span[contains(@class, 'price--isOpened')]"));
     private SelenideElement openRouteTitle = $(By.xpath(openRouteStr+"//div[contains(@class, 'name__item__title')]"));
 
+    public String getRouteInfo(){
+        return openRouteTitle.getText();
+    }
 
     private TimetablePage waitRoutes(){
         loader.waitWhile(Condition.enabled, 60000);
@@ -44,7 +47,7 @@ public class TimetablePage {
     /**
      * Оставляем только прямые маршруты
      */
-    public TimetablePage setDirectRoutes() throws ElementNotFound {
+    public TimetablePage setDirectRoutes() throws InterruptedException {
         waitRoutes();
         transfer.click();
         oneTransferChkbox.click();
@@ -57,6 +60,7 @@ public class TimetablePage {
         } catch (ElementNotFound e) {
             logger.error(e.toString());
         }
+        scrollDown();
         return this;
     }
 
