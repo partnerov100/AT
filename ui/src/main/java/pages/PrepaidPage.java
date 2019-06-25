@@ -14,16 +14,17 @@ public class PrepaidPage {
 //    class="loader-horizontal__wrapper ui-button__inner-loader loader-horizontal__wrapper_center loader-horizontal__wrapper_xxxs"
 
     public PrepaidPage checkPrice(String cartPrice){
-        routeInfo.waitUntil(Condition.visible, 20000);
+        routeInfo.waitUntil(Condition.visible, 60000);
+        price.waitUntil(Condition.enabled, 10000);
         String strPrice = price.getText();
-        CustomAssert.assertEquals(cartPrice, strPrice);
+        CustomAssert.assertEquals(strPrice, cartPrice);
         return this;
     }
 
     public void toPay(String earlierRouteInfo){
         String getRouteInfo = routeInfo.getText().replace("Информация о рейсе: ", "")
                 .replace("-", "→");
-        CustomAssert.assertEquals(earlierRouteInfo, getRouteInfo);
+        CustomAssert.assertEquals(getRouteInfo, earlierRouteInfo);
         pay.click();
     }
 }

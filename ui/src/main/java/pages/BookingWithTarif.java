@@ -5,7 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.testng.Assert;
+import utils.Converter;
 import utils.CustomAssert;
 
 import static org.testng.Assert.assertEquals;
@@ -25,9 +25,10 @@ public class BookingWithTarif {
     private static SelenideElement generalPrice = $(By.xpath("//div[contains(@class, 'general-price')]"));
     private SelenideElement nextBtn = $(By.xpath("//button[.='Далее']"));
 
+
     public BookingWithTarif checkPrice(String price) {
         SelenideElement hideDetails = $(By.xpath("//*[@id='pay-header__info']//*[text()[contains(.,'" + price + "')]]"));
-        hideDetails.waitUntil(Condition.visible, 30000);
+        hideDetails.waitUntil(Condition.visible, 40000);
         return this;
     }
 
@@ -46,7 +47,7 @@ public class BookingWithTarif {
         footers.get(2).$x(choseBtn).click();
         String totalPrice = generalPrice.getText().replace("Итого: ", "");
         CustomAssert.assertEquals(secondPrice, totalPrice);
-        return secondPrice;
+        return getFullPrice(totalPrice);
     }
 
     public BookingWithTarif checkFirstTariff(String price) {
@@ -56,6 +57,16 @@ public class BookingWithTarif {
                 .shouldBe(Condition.enabled);
         return this;
     }
+
+    private String getFullPrice(String price) {
+        String newPrice = price.replace(" ₽", "");
+        newPrice = Converter.spaceToNbsp(newPrice);
+        SelenideElement mainPrice = $(By.xpath("//div[@class='pay-header__info__inner']//*[text()[contains(.,'"+newPrice+"')]]"));
+        mainPrice.scrollIntoView("{block: \"end\"}");
+        return mainPrice.getText();
+    }
+
+
 
 
 }

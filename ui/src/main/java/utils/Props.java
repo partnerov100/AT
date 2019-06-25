@@ -31,7 +31,7 @@ public class Props {
     public static String getEnvData(String key) {
         String server = System.getProperty("server");
         if(server==null) {
-            server = "dev";
+            server = "stage";
             System.setProperty("server", server);
         }
         return getFileProperties(server, key);

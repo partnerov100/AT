@@ -25,4 +25,8 @@ public class Converter {
         return price.replace("," + pennies, " ");
     }
 
+    public static String hidePennyAndRub(String price) {
+        return StringUtils.substringBefore(price, ",");
+    }
+
 }

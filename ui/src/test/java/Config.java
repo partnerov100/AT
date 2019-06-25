@@ -1,21 +1,27 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.testng.ScreenShooter;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import utils.Props;
 
+import static com.codeborne.selenide.Selenide.open;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Listeners({ ScreenShooter.class})
 public class Config {
 
-    protected final String webUrl = Props.getEnvData("webUrl");
+    final static String webUrl = Props.getEnvData("webUrl");
+    private static String cookie = Props.getEnvData("cookie");
 
-    public static String getRunType() {
+    private static String getRunType() {
         String runType = System.getProperty("runType");
         if(runType==null) {
             String type = "local";
@@ -23,6 +29,13 @@ public class Config {
             runType = type;
         }
         return runType;
+    }
+
+     void addCookie(){
+      open(webUrl);//"about:blank"
+        WebDriverRunner.getWebDriver().manage().deleteCookieNamed("mv_test");
+        Cookie ck = new Cookie("mv_test", cookie);
+        WebDriverRunner.getWebDriver().manage().addCookie(ck);
     }
 
     @BeforeClass
@@ -48,6 +61,7 @@ public class Config {
                 WebDriverRunner.setWebDriver(driver);
                 break;
         }
+//        addCookie();
     }
 
     @BeforeMethod

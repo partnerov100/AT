@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import utils.PostgreSQL;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -29,16 +30,29 @@ public class Documents {
     private SelenideElement firstApplyChkbox = $(By.xpath(apply+"[1]"));
     private SelenideElement secondApplyChkbox = $(By.xpath(apply+"[2]"));
     private SelenideElement submitBtn = $(By.xpath("//button[.='Перейти к оплате']"));
+    private SelenideElement loader = $(By.xpath("//div[@class='loader-horizontal__wrapper']"));
+    private SelenideElement phoneApproved = $(By.xpath("//div[@class='pay-auth__form__success']"));
+
+
 
     public Documents confirmPhone() throws InterruptedException {
         String oldCode = PostgreSQL.getCode();
+        if(System.getProperty("server").equals("dev")) {
+            oldCode = "";
+        }
         Thread.sleep(1000);//не вводится телефон без слипа
-        phone.setValue("9252302310");
+//        phone.setValue("9252302310");
+        phone.sendKeys("9252302310");
+        Thread.sleep(1000);
         email.setValue("2123f32f@test.com");
+        Thread.sleep(1000);
         codeBtn.click();
-        codeSend.waitUntil(Condition.visible,5000);
+//        codeSend.waitUntil(Condition.visible,5000);
+        loader.waitUntil(Condition.enabled, 5000);
+        loader.waitWhile(Condition.enabled, 30000);
         String newCode = PostgreSQL.waitNewCode(oldCode);
         smsField.waitUntil(Condition.enabled, 5000).setValue(newCode);
+        phoneApproved.waitUntil(Condition.enabled, 20000);
         return this;
     }
 
@@ -55,7 +69,7 @@ public class Documents {
         citizenship.shouldBe(Condition.visible);
         lastName.setValue("Movistov");
         firstName.setValue("Movist");
-        middleName.setValue("Movistovich");
+//        middleName.setValue("Movistovich");
         birthDay.setValue("30121900");
         female.click();
         male.click();

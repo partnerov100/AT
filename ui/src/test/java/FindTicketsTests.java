@@ -4,12 +4,12 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.Converter;
+import utils.PostgreSQL;
 
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-import static org.testng.Assert.assertEquals;
 import static com.codeborne.selenide.Selenide.open;
+import static org.testng.Assert.assertEquals;
 
 @Report
 @Listeners({TextReport.class})
@@ -17,6 +17,7 @@ public class FindTicketsTests extends Config {
 
     @Test
     public void homePageTest() throws Exception {
+        addCookie();
         Cart cart = new Cart();
         TimetablePage timetable = new TimetablePage();
         BookingWithTarif booking = new BookingWithTarif();
@@ -31,7 +32,7 @@ public class FindTicketsTests extends Config {
         assertEquals(price, cartPrice);
         cart.buyTicket(routeDescr);
         price = Converter.spaceToNbsp(price);
-        String priceWithoutPenny = Converter.hidePenny(price);
+        String priceWithoutPenny = Converter.hidePennyAndRub(price);
         String bookingDescr = booking.checkPrice(price).getDescription();
         assertEquals(routeDescr, bookingDescr);
         booking.checkFirstTariff(priceWithoutPenny);//баг на фронте? Не везде есть копейки
@@ -51,8 +52,9 @@ public class FindTicketsTests extends Config {
     @Test
     public void Test1() throws InterruptedException, SQLException {
 
-        open("http://web-tmp.dev-k8s.movista.ru/booking?uid=16bcb455-2e65-46d3-9765-c1e5535f7b2a");
-        Converter.hidePenny("5 923,78 ₽");
+        open("http://web-tmp.dev-k8s.movista.ru/");
+        System.out.println(PostgreSQL.getCode());
+//        Converter.hidePenny("5 923,78 ₽");
 //        new BookingWithTarif().nextPage();
 //        new Documents().setDocs();
         Thread.sleep(5000);

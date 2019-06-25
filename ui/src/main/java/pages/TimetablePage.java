@@ -39,7 +39,7 @@ public class TimetablePage {
     }
 
     private TimetablePage waitRoutes(){
-        loader.waitWhile(Condition.enabled, 60000);
+        loader.waitWhile(Condition.enabled, 90000);
         ourRoutes.last().waitUntil(Condition.enabled, 10000);
         return this;
     }
@@ -104,7 +104,7 @@ public class TimetablePage {
         return routeDescription.getText();
     }
 
-    public String getPrice() {
+    private String getPrice() {
         return openPrice.getText();
     }
 

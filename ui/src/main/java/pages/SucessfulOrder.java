@@ -18,7 +18,7 @@ public class SucessfulOrder {
 
     public SucessfulOrder checkCongratsText(){
         String thanksText = "Поздравляем с успешной покупкой билетов!";
-        congrats.waitUntil(Condition.enabled, 30000);
+        congrats.waitUntil(Condition.enabled, 60000);
         CustomAssert.assertEquals(congrats.getText(), thanksText);
         return this;
     }
