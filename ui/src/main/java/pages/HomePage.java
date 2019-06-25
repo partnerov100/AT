@@ -17,10 +17,14 @@ public class HomePage {
     private String fDay = DatePicker.getDate();
     private SelenideElement searchForm = $(By.xpath("//div[@class='search-form']"));
     private SelenideElement dropdownDialog = $(By.xpath("//div[@class='ui-dropdown-dialog']"));
-    private SelenideElement fromCity = $(By.xpath("//button[contains(@class, 'ignore-from')]"));
-    private SelenideElement toCity = $(By.xpath("//button[contains(@class, 'ignore-to')]"));
-    private SelenideElement fromDate = $(By.xpath("//button[contains(@class, 'rangeFrom')]"));
-    private SelenideElement transport = $(By.xpath("(//button[contains(@class, 'item__button')])[last()]"));
+//    private SelenideElement fromCity = $(By.xpath("//button[contains(@class, 'ignore-from')]"));
+    private SelenideElement fromCity = $(By.id("search-from-place"));
+//    private SelenideElement toCity = $(By.xpath("//button[contains(@class, 'ignore-to')]"));
+    private SelenideElement toCity = $(By.id("search-to-place"));
+//    private SelenideElement fromDate = $(By.xpath("//button[contains(@class, 'rangeFrom')]"));
+    private SelenideElement fromDate = $(By.id("search-date-from')]"));
+//    private SelenideElement transport = $(By.xpath("(//button[contains(@class, 'item__button')])[last()]"));
+    private SelenideElement transport = $(By.id("search-trip-types')]"));
     private SelenideElement cityList = $(By.xpath("//div[contains(@class, 'menu-list')]"));
     private SelenideElement input = $(By.xpath("//input"));
     private SelenideElement popularCity = $(By.xpath("//div[text()[contains(.,'Популярные города')]]"));
