@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import pages.*;
 import utils.Converter;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import static org.testng.Assert.assertEquals;
@@ -15,7 +16,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class FindTicketsTests extends Config {
 
     @Test
-    public void homePageTest() throws InterruptedException {
+    public void homePageTest() throws Exception {
         Cart cart = new Cart();
         TimetablePage timetable = new TimetablePage();
         BookingWithTarif booking = new BookingWithTarif();
@@ -43,7 +44,7 @@ public class FindTicketsTests extends Config {
         prepaidPage.toPay(routeInfo);
         sberPage.checkPrice(secondPrice).setCardAndPay();
         SucessfulOrder orderPage = new SucessfulOrder();
-        orderPage.checkCongratsText();
+        orderPage.checkCongratsText().checkDownload();
         Thread.sleep(15000);
     }
 
