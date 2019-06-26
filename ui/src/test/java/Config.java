@@ -61,7 +61,6 @@ public class Config {
                 WebDriverRunner.setWebDriver(driver);
                 break;
         }
-//        addCookie();
     }
 
     @BeforeMethod

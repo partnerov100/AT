@@ -12,7 +12,7 @@ import static org.testng.Assert.assertEquals;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BookingWithTarif {
+public class TariffPage {
 
     private static String choseBtn= "//button[.='Выбрать']";
     private static String headerPrice = "(//div[contains(@class, 'header__price')])";
@@ -21,24 +21,24 @@ public class BookingWithTarif {
     private ElementsCollection footers = $$(By.xpath("//div[contains(@class, 'footer-container')]"));
     private ElementsCollection pricesHeader = $$(By.xpath(headerPrice));
     private ElementsCollection tarifHeader = $$(By.xpath("//div[@class='avia-rate-header']"));
-    private ElementsCollection сhoseBtns = $$(By.xpath(choseBtn));
+    private ElementsCollection сhooseBtns = $$(By.xpath(choseBtn));
     private static SelenideElement generalPrice = $(By.xpath("//div[contains(@class, 'general-price')]"));
     private SelenideElement nextBtn = $(By.xpath("//button[.='Далее']"));
 
 
-    public BookingWithTarif checkPrice(String price) {
+    public TariffPage checkPrice(String price) {
         SelenideElement hideDetails = $(By.xpath("//*[@id='pay-header__info']//*[text()[contains(.,'" + price + "')]]"));
         hideDetails.waitUntil(Condition.visible, 40000);
         return this;
     }
 
-    public String getDescription() {
-        return routeDescription.getText();
+    public void checkDescription(String description) {
+        CustomAssert.assertEquals(description, routeDescription.getText());
     }
 
-    public Documents nextPage(){
+    public DocumentsPage nextPage(){
         nextBtn.scrollTo().click();
-        return new Documents();
+        return new DocumentsPage();
     }
 
     @Step("Выбор другого тарифа с проверкой изменения цены")
@@ -50,7 +50,7 @@ public class BookingWithTarif {
         return getFullPrice(totalPrice);
     }
 
-    public BookingWithTarif checkFirstTariff(String price) {
+    public TariffPage checkFirstTariff(String price) {
         $(By.xpath("//div[@class='avia-rate-header'][1]//div[text()[contains(.,'"+price+"')]]"))
                 .shouldBe(Condition.enabled);
         $(By.xpath("//div[contains(@class, 'footer-container')][1]//div[contains(@class, 'selected-label')]"))

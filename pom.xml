@@ -21,6 +21,7 @@
         <maven-surefire.version>3.0.0-M3</maven-surefire.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
         <slf4j.version>1.7.26</slf4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
@@ -70,8 +71,8 @@
                 <configuration>
                     <!-- put your configurations here -->
                     <fork>true</fork>
-                    <source>1.11</source>
-                    <target>1.11</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -97,7 +98,7 @@
                     </suiteXmlFiles>
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -javaagent:"${settings.localRepository}\org\aspectj\aspectjweaver\${aspectj.version}\aspectjweaver-${aspectj.version}.jar"
                     </argLine>
                 </configuration>
                 <dependencies>

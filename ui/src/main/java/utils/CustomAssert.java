@@ -17,7 +17,7 @@ public class CustomAssert {
             Assert.assertEquals(act, exp);
             logger.info(act +" is equal "+ exp);
         } catch (AssertionError e) {
-            logger.trace("Not equal");
+            logger.error(e.toString());
             throw e;
         }
     }

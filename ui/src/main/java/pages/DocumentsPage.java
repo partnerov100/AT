@@ -6,9 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import utils.PostgreSQL;
 
+import java.security.Key;
+
 import static com.codeborne.selenide.Selenide.$;
 
-public class Documents {
+public class DocumentsPage {
 
     private SelenideElement email = $(By.id("email"));
     private SelenideElement phone = $(By.id("phoneNumber"));
@@ -35,21 +37,20 @@ public class Documents {
 
 
 
-    public Documents confirmPhone() throws InterruptedException {
+    public DocumentsPage confirmPhone() throws InterruptedException {
         String oldCode = PostgreSQL.getCode();
         if(System.getProperty("server").equals("dev")) {
             oldCode = "";
         }
         Thread.sleep(1000);//не вводится телефон без слипа
-//        phone.setValue("9252302310");
-        phone.sendKeys("9252302310");
+        phone.sendKeys(Keys.HOME);
+        phone.setValue("9252302310");
         Thread.sleep(1000);
         email.setValue("2123f32f@test.com");
         Thread.sleep(1000);
         codeBtn.click();
-//        codeSend.waitUntil(Condition.visible,5000);
         loader.waitUntil(Condition.enabled, 5000);
-        loader.waitWhile(Condition.enabled, 30000);
+        loader.waitWhile(Condition.enabled, 60000);
         String newCode = PostgreSQL.waitNewCode(oldCode);
         smsField.waitUntil(Condition.enabled, 5000).setValue(newCode);
         phoneApproved.waitUntil(Condition.enabled, 20000);
@@ -60,17 +61,19 @@ public class Documents {
         submitBtn.waitUntil(Condition.enabled, 5000).click();
     }
 
-    public Documents setDocs(){
+    public DocumentsPage setDocs(){
 
         documentType.click();
         internationalPasp.click();
-        serialNumber.setValue("123456789");
-        passportDate.setValue("30122025");
+        serialNumber.sendKeys(Keys.HOME);
+        serialNumber.sendKeys("123456789");
+//        passportDate.sendKeys(Keys.HOME);
+        passportDate.sendKeys(Keys.HOME+"30122025");
         citizenship.shouldBe(Condition.visible);
         lastName.setValue("Movistov");
         firstName.setValue("Movist");
 //        middleName.setValue("Movistovich");
-        birthDay.setValue("30121900");
+        birthDay.setValue(Keys.HOME+"30121900");
         female.click();
         male.click();
         firstApplyChkbox.scrollIntoView(true).click();

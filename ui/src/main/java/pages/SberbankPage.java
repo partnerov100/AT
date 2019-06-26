@@ -22,10 +22,13 @@ public class SberbankPage {
 
     public SberbankPage checkPrice(String cartPrice){
         price.waitUntil(Condition.enabled, 20000);
-        String strPrice = price.getText();
+        String sberPrice = price.getText();
         cartPrice = cartPrice.replace(" ₽", "");
-        strPrice = StringUtils.substringBefore(strPrice, ",");
-        CustomAssert.assertEquals(cartPrice, strPrice);
+        //TODO убрать следущие две строки если цены будут везде с копейками
+        cartPrice = StringUtils.substringBefore(cartPrice, ",");
+        sberPrice = StringUtils.substringBefore(sberPrice, ",");
+
+        CustomAssert.assertEquals(sberPrice, cartPrice);
         return this;
     }
 

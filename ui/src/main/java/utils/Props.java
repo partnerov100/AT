@@ -13,6 +13,11 @@ import java.util.Properties;
 
 public class Props {
 
+    private Props(){
+    }
+
+    private static String server = "stage";
+
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static String getFileProperties(String name, String key) {
@@ -29,12 +34,12 @@ public class Props {
     }
 
     public static String getEnvData(String key) {
-        String server = System.getProperty("server");
-        if(server==null) {
-            server = "stage";
-            System.setProperty("server", server);
+        String serverProp = System.getProperty("server");
+        if(serverProp==null) {
+            serverProp = server;
+            System.setProperty("server", serverProp);
         }
-        return getFileProperties(server, key);
+        return getFileProperties(serverProp, key);
     }
 
     public static String getData(String key) {

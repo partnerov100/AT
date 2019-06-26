@@ -11,7 +11,6 @@ public class PrepaidPage {
     private SelenideElement pay = $(By.xpath("//button[.='Оплатить']"));
     private SelenideElement routeInfo = $(By.xpath("//div[text()[contains(.,'Информация о рейсе:')]]"));
     private SelenideElement price = $(By.xpath("//div[contains(@class, 'result-price__price')]"));
-//    class="loader-horizontal__wrapper ui-button__inner-loader loader-horizontal__wrapper_center loader-horizontal__wrapper_xxxs"
 
     public PrepaidPage checkPrice(String cartPrice){
         routeInfo.waitUntil(Condition.visible, 60000);
@@ -21,10 +20,11 @@ public class PrepaidPage {
         return this;
     }
 
-    public void toPay(String earlierRouteInfo){
+    public String toPay(String earlierRouteInfo){
         String getRouteInfo = routeInfo.getText().replace("Информация о рейсе: ", "")
                 .replace("-", "→");
         CustomAssert.assertEquals(getRouteInfo, earlierRouteInfo);
         pay.click();
+        return getRouteInfo;
     }
 }
