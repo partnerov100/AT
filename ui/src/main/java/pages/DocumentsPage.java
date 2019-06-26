@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import utils.PostgreSQL;
@@ -36,7 +37,7 @@ public class DocumentsPage {
     private SelenideElement phoneApproved = $(By.xpath("//div[@class='pay-auth__form__success']"));
 
 
-
+    @Step("Ввод телефона, почты и кода подтверждения")
     public DocumentsPage confirmPhone() throws InterruptedException {
         String oldCode = PostgreSQL.getCode();
         if(System.getProperty("server").equals("dev")) {
@@ -61,8 +62,8 @@ public class DocumentsPage {
         submitBtn.waitUntil(Condition.enabled, 5000).click();
     }
 
+    @Step("Ввод данных пассажира")
     public DocumentsPage setDocs(){
-
         documentType.click();
         internationalPasp.click();
         serialNumber.sendKeys(Keys.HOME+"123456789");

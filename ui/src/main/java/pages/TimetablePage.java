@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +45,7 @@ public class TimetablePage {
         return this;
     }
 
-    /**
-     * Оставляем только прямые маршруты
-     */
+    @Step("Только прямые маршруты")
     public TimetablePage setDirectRoutes() throws InterruptedException {
         waitRoutes();
         transfer.click();

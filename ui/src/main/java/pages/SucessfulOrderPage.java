@@ -15,7 +15,6 @@ import static com.codeborne.selenide.Selenide.$;
 public class SucessfulOrderPage {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private String downloadText = "Скачать маршрутные квитанции";
-    private String infoMessage = "Распечатайте билет на международный маршрут заранее: они могут понадобиться на границе.";
     private SelenideElement downloadReceiptsBtn = $(By.xpath("//button[text()[contains(.,'"+downloadText+"')]]"));
     private SelenideElement routeInfo = $(By.xpath("//div[text()[contains(.,'Информация о рейсе:')]]"));
     private SelenideElement congrats = $(By.xpath("//div[contains(@class, 'thanks__title')]"));

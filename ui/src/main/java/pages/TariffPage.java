@@ -8,13 +8,12 @@ import org.openqa.selenium.By;
 import utils.Converter;
 import utils.CustomAssert;
 
-import static org.testng.Assert.assertEquals;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class TariffPage {
 
-    private static String choseBtn= "//button[.='Выбрать']";
+    private static String choseBtn = "//button[.='Выбрать']";
     private static String headerPrice = "(//div[contains(@class, 'header__price')])";
     private SelenideElement routeDescription = $(By.xpath("//div[contains(@class, 'container__description')]"));
     private SelenideElement selectedFooter = $(By.xpath("//div[contains(@class, 'selected-label')]"));
@@ -25,13 +24,14 @@ public class TariffPage {
     private static SelenideElement generalPrice = $(By.xpath("//div[contains(@class, 'general-price')]"));
     private SelenideElement nextBtn = $(By.xpath("//button[.='Далее']"));
 
-
+    @Step("Проверка цены")
     public TariffPage checkPrice(String price) {
         SelenideElement hideDetails = $(By.xpath("//*[@id='pay-header__info']//*[text()[contains(.,'" + price + "')]]"));
         hideDetails.waitUntil(Condition.visible, 40000);
         return this;
     }
 
+    @Step("Проверка дескрипшена")
     public void checkDescription(String description) {
         CustomAssert.assertEquals(description, routeDescription.getText());
     }
@@ -58,6 +58,7 @@ public class TariffPage {
         return this;
     }
 
+    @Step("Проверка цены")
     private String getFullPrice(String price) {
         String newPrice = price.replace(" ₽", "");
         newPrice = Converter.spaceToNbsp(newPrice);

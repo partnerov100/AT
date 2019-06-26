@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import utils.CustomAssert;
@@ -20,6 +21,7 @@ public class SberbankPage {
     private SelenideElement cvc = $(By.id("cvc"));
     private SelenideElement pay = $(By.xpath("//button[@class='sbersafe-pay-button']"));
 
+    @Step("Проверка цены")
     public SberbankPage checkPrice(String cartPrice){
         price.waitUntil(Condition.enabled, 20000);
         String sberPrice = price.getText();
