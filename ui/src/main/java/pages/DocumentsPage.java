@@ -65,9 +65,7 @@ public class DocumentsPage {
 
         documentType.click();
         internationalPasp.click();
-        serialNumber.sendKeys(Keys.HOME);
-        serialNumber.sendKeys("123456789");
-//        passportDate.sendKeys(Keys.HOME);
+        serialNumber.sendKeys(Keys.HOME+"123456789");
         passportDate.sendKeys(Keys.HOME+"30122025");
         citizenship.shouldBe(Condition.visible);
         lastName.setValue("Movistov");

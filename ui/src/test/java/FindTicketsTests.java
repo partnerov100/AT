@@ -16,7 +16,7 @@ public class FindTicketsTests extends Config {
     @Test
     public void homePageTest() throws InterruptedException {
         addCookie();
-        Cart cart = new Cart();
+        CartPage cart = new CartPage();
         TimetablePage timetable = new TimetablePage();
         TariffPage booking = new TariffPage();
         PrepaidPage prepaidPage = new PrepaidPage();

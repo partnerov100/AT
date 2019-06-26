@@ -16,7 +16,7 @@ public class Props {
     private Props(){
     }
 
-    private static String server = "stage";
+    private static String server = "dev";
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
