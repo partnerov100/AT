@@ -58,7 +58,7 @@ public class TimetablePage {
             loader.waitUntil(Condition.enabled, 2000);
             loader.waitWhile(Condition.enabled, 5000);
         } catch (ElementNotFound e) {
-            logger.error(e.toString());
+            logger.warn(e.toString());
         }
         scrollDown();
         return this;
@@ -73,7 +73,7 @@ public class TimetablePage {
             scrollLoader.scrollTo();
             Thread.sleep(150);
             } catch (ElementNotFound e) {
-                logger.error(e.toString());
+                logger.warn(e.toString());
             }
             if(!scrollLoader.isDisplayed()){
                 break;
