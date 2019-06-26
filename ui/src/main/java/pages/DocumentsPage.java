@@ -45,7 +45,7 @@ public class DocumentsPage {
         Thread.sleep(1000);//не вводится телефон без слипа
         phone.sendKeys(Keys.HOME);
         phone.setValue("9252302310");
-        Thread.sleep(1000);
+        Thread.sleep(1000);//со слипами работает стабильней!
         email.setValue("2123f32f@test.com");
         Thread.sleep(1000);
         codeBtn.click();

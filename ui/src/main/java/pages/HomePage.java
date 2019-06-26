@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.testng.TextReport;
 import com.codeborne.selenide.testng.annotations.Report;
+import io.qameta.allure.Step;
 import org.testng.Assert;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -35,15 +36,17 @@ public class HomePage {
     private SelenideElement cookieBtn = $(By.xpath("//button[.='Я согласен(-на)']"));
     private SelenideElement searchBtn = $(By.xpath("//button[@id='searchSubmit']"));
 
+    @Step("Вводим базовую информацию")
     public TimetablePage setBaseInformation(){
         chooseFromCity()
-                .chooseToCity()
-                .chooseTomorrow()
-                .chooseTransport()
-                .search();
+            .chooseToCity()
+            .chooseTomorrow()
+            .chooseTransport()
+            .search();
         return new TimetablePage();
     }
 
+    @Step("Выбор города отправления")
     public HomePage chooseFromCity() {
         fromCity.click();
         input.setValue("Москва");

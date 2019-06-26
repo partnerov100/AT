@@ -3,7 +3,7 @@
 <suite name="SmokeTests"  verbose="1" data-provider-thread-count="5" parallel="methods">
     <test name="UI_Tests" >
         <classes>
-            <class name="FindTicketsTests" />
+            <class name="BuyTicketsTests" />
         </classes>
     </test>
 

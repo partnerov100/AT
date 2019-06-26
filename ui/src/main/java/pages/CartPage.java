@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import utils.CustomAssert;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -21,8 +22,9 @@ public class CartPage {
         return this;
     }
 
-    public String getPrice() {
-        return price.getText();
+    public CartPage checkPrice(String expPrice) {
+        CustomAssert.assertEquals(price.getText(), expPrice);
+        return this;
     }
 
 }

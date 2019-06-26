@@ -34,10 +34,11 @@ public class SucessfulOrderPage {
         download.click();
     }
 
-    public void checkTextsOnPage(String earlierRouteInfo) {
-        String routeInfoText = routeInfo.getText().replace("Информация о рейсе: ", "");
+    public SucessfulOrderPage checkRouteInfo(String earlierRouteInfo) {
+        String routeInfoText = routeInfo.getText().replace("Информация о рейсе: ", "")
+                .replace("-", "→");;
         CustomAssert.assertEquals(routeInfoText, earlierRouteInfo);
-
+        return this;
     }
 
 }

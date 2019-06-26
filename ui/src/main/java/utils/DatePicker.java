@@ -22,6 +22,9 @@ public class DatePicker {
         return dateFormat.format(date);
     }
 
+    /**
+     * Берется текущая дата, добавляется кол-во дней и возвращается в необходимом для поиска формате
+     */
     public static String getDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM yyyy", locale);
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));

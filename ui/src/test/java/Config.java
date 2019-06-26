@@ -24,14 +24,13 @@ public class Config {
     private static String getRunType() {
         String runType = System.getProperty("runType");
         if(runType==null) {
-            String type = "local";
-            System.setProperty("runType", type);
-            runType = type;
+            runType = "local";
+            System.setProperty("runType", runType);
         }
         return runType;
     }
 
-     void addCookie(){
+    void addCookie(){
       open(webUrl);//"about:blank"
         WebDriverRunner.getWebDriver().manage().deleteCookieNamed("mv_test");
         Cookie ck = new Cookie("mv_test", cookie);

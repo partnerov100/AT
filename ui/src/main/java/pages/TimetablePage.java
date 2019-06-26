@@ -65,7 +65,8 @@ public class TimetablePage {
     }
 
     /**
-     * Скролл списка пока не исчезнет loader
+     * Скролл списка пока не исчезнет loader,
+     * периодически loader исчезает и можно словить warning
      */
     public TimetablePage scrollDown() throws InterruptedException {
         while(scrollLoader.isDisplayed()){
