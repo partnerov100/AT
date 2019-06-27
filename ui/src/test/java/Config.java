@@ -10,12 +10,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import utils.Props;
+import utils.ScreenShotOnFailListener;
 
 import static com.codeborne.selenide.Selenide.open;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Listeners({ ScreenShooter.class})
+@Listeners(ScreenShotOnFailListener.class)
+//@Listeners({ ScreenShooter.class})
 public class Config {
 
     final static String webUrl = Props.getEnvData("webUrl");
