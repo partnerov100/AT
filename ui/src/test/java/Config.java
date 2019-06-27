@@ -17,7 +17,7 @@ import java.net.URL;
 
 
 //@Listeners({ ScreenShooter.class})
-@Listeners({ TakeAttachments.class})
+//@Listeners({ TakeAttachments.class})
 public class Config {
 
     final static String webUrl = Props.getEnvData("webUrl");
