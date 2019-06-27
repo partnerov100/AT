@@ -3,6 +3,8 @@ package utils;
 import com.codeborne.selenide.Screenshots;
 import com.google.common.io.Files;
 import io.qameta.allure.Attachment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.IHookCallBack;
 import org.testng.IHookable;
 import org.testng.ITestResult;
@@ -12,6 +14,8 @@ import java.io.IOException;
 
 public class TakeAttachments implements IHookable {
 
+    private static final Logger logger = LoggerFactory.getLogger(TakeAttachments.class.getName());
+
     @Override
     public void run(IHookCallBack callBack, ITestResult testResult) {
         callBack.runTestMethod(testResult);
@@ -19,7 +23,7 @@ public class TakeAttachments implements IHookable {
             try {
                 takeScreenShot(testResult.getMethod().getMethodName());
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.toString());
             }
         }
     }
