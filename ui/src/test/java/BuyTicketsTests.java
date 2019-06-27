@@ -47,7 +47,9 @@ public class BuyTicketsTests extends Config {
     public void allureTest(){
         open("http://web-tmp.dev-k8s.movista.ru/");
         HomePage homePage = new HomePage();
+        TimetablePage timetable = new TimetablePage();
         homePage.chooseTransport().search();
+        timetable.getRouteDetails();
     }
 
 }
