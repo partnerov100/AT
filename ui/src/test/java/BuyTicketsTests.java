@@ -43,15 +43,11 @@ public class BuyTicketsTests extends Config {
             .checkDownload();
     }
 
-    @Test(enabled = false)
-    public void Test1() throws InterruptedException {
-
+    @Test
+    public void AllureTest(){
         open("http://web-tmp.dev-k8s.movista.ru/");
-        System.out.println(PostgreSQL.getCode());
-//        Converter.hidePenny("5 923,78 ₽");
-//        new TariffPage().nextPage();
-//        new DocumentsPage().setDocs();
-        Thread.sleep(5000);
+        HomePage homePage = new HomePage();
+        homePage.chooseTransport().search();
     }
 
 }
