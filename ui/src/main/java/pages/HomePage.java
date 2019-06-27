@@ -56,6 +56,7 @@ public class HomePage {
         return this;
     }
 
+    @Step("Выбор города прибытия")
     public HomePage chooseToCity() {
         toCity.click();
         input.setValue("Нур-Султан");
@@ -65,12 +66,14 @@ public class HomePage {
         return this;
     }
 
+    @Step("Выбор даты")
     public HomePage chooseTomorrow()  {
         fromDate.click();
         futureDay.click();
         return this;
     }
 
+    @Step("Выбор транспорта")
     public HomePage chooseTransport() {
         transport.click();
         airplainButton.click();
