@@ -67,6 +67,7 @@ public class TimetablePage {
      * Скролл списка пока не исчезнет loader,
      * периодически loader исчезает и можно словить warning
      */
+    @Step("Скролим для прогрузки всех маршрутов")
     public TimetablePage scrollDown() throws InterruptedException {
         while(scrollLoader.isDisplayed()){
             try{
@@ -97,6 +98,7 @@ public class TimetablePage {
         }
     }
 
+    @Step("Получаем детали маршрута")
     public String getRouteDetails(){
         routesByTitle.first()
             .scrollIntoView(blockEnd)
