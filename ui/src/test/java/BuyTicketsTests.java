@@ -4,7 +4,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.Converter;
-import utils.PostgreSQL;
 
 import static com.codeborne.selenide.Selenide.open;
 

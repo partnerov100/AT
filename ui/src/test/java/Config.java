@@ -1,6 +1,5 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.testng.ScreenShooter;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -10,14 +9,15 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import utils.Props;
-import utils.ScreenShotOnFailListener;
+import utils.TakeAttachments;
 
 import static com.codeborne.selenide.Selenide.open;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Listeners(ScreenShotOnFailListener.class)
+
 //@Listeners({ ScreenShooter.class})
+@Listeners({ TakeAttachments.class})
 public class Config {
 
     final static String webUrl = Props.getEnvData("webUrl");
