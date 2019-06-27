@@ -43,7 +43,7 @@ public class BuyTicketsTests extends Config {
             .checkDownload();
     }
 
-    @Test
+    @Test(enabled = false)
     public void allureTest(){
         open("http://web-tmp.dev-k8s.movista.ru/");
         HomePage homePage = new HomePage();
