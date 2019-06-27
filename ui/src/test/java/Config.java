@@ -51,7 +51,6 @@ public class Config {
                 Configuration.browserVersion = "75.0";
                 break;
             case ("server"):
-//                SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 ChromeOptions options = new ChromeOptions();
                 capabilities.setBrowserName("chrome");
@@ -59,6 +58,7 @@ public class Config {
                 options.addArguments("--window-size=1920,1080");
                 options.addArguments("start-maximized");
                 Configuration.screenshots = false;
+                capabilities.setCapability("screenshots", false);
                 capabilities.setCapability("enableVNC", true);
                 capabilities.setCapability("enableVideo", false);
                 capabilities.setCapability(ChromeOptions.CAPABILITY, options);

@@ -27,7 +27,6 @@ public class BuyTicketsTests extends Config {
             .setDirectRoutes()
             .getRouteDetails();
         String price = timetable.buyRoute();
-        CustomAssert.assertEquals(routeDescr, "fwenmjfe");
         String routeInfo = timetable.getRouteInfo();
         cart.checkPrice(price).buyTicket(routeDescr);
         price = Converter.spaceToNbsp(price);
