@@ -31,11 +31,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-selenide -->
-<!--        <dependency>-->
-<!--            <groupId>io.qameta.allure</groupId>-->
-<!--            <artifactId>allure-selenide</artifactId>-->
-<!--            <version>2.12.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>2.12.1</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
         <dependency>
@@ -89,7 +89,7 @@
                 <version>${maven-surefire.version}</version>
                 <configuration>
                     <!--   Паралельный запуск тестов-->
-                    <parallel>methods</parallel>
+                    <parallel>false</parallel>
                     <threadCount>10</threadCount>
                     <forkCount>10</forkCount>
                     <!--<reuseForks>false</reuseForks>-->

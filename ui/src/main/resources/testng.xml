@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="SmokeTests"  verbose="1" data-provider-thread-count="5" parallel="methods">
+<suite name="SmokeTests"  verbose="1" parallel="false">
     <test name="UI_Tests" >
         <classes>
             <class name="BuyTicketsTests" />

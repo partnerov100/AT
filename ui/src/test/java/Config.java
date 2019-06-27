@@ -1,5 +1,8 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import com.codeborne.selenide.testng.ScreenShooter;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -26,7 +29,7 @@ public class Config {
     private static String getRunType() {
         String runType = System.getProperty("runType");
         if(runType==null) {
-            runType = "local";
+            runType = "server";
             System.setProperty("runType", runType);
         }
         return runType;
@@ -41,14 +44,16 @@ public class Config {
 
     @BeforeClass
     public void setUp() throws MalformedURLException {
-        Configuration.driverManagerEnabled = false;
         switch (getRunType()) {
             case ("local"):
+                Configuration.driverManagerEnabled = false;
                 Configuration.startMaximized = true;
                 Configuration.reportsFolder = "target/allure-results";
                 Configuration.browserVersion = "75.0";
                 break;
             case ("server"):
+                System.out.println("!!!!!!!!!!!");
+                SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 ChromeOptions options = new ChromeOptions();
                 capabilities.setBrowserName("chrome");
