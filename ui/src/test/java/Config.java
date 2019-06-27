@@ -20,7 +20,7 @@ import java.net.URL;
 
 
 //@Listeners({ ScreenShooter.class})
-//@Listeners({TakeAttachments.class})
+@Listeners({TakeAttachments.class})
 public class Config {
 
     final static String webUrl = Props.getEnvData("webUrl");
@@ -52,7 +52,6 @@ public class Config {
                 Configuration.browserVersion = "75.0";
                 break;
             case ("server"):
-                SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
                 DesiredCapabilities capabilities = new DesiredCapabilities();
                 ChromeOptions options = new ChromeOptions();
                 capabilities.setBrowserName("chrome");
