@@ -29,7 +29,7 @@ public class Config {
     private static String getRunType() {
         String runType = System.getProperty("runType");
         if(runType==null) {
-            runType = "server";
+            runType = "local";
             System.setProperty("runType", runType);
         }
         return runType;

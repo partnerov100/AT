@@ -4,6 +4,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.Converter;
+import utils.CustomAssert;
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -26,6 +27,7 @@ public class BuyTicketsTests extends Config {
             .setDirectRoutes()
             .getRouteDetails();
         String price = timetable.buyRoute();
+        CustomAssert.assertEquals(routeDescr, "fwenmjfe");
         String routeInfo = timetable.getRouteInfo();
         cart.checkPrice(price).buyTicket(routeDescr);
         price = Converter.spaceToNbsp(price);

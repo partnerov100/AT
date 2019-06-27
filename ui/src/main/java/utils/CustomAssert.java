@@ -12,10 +12,10 @@ public class CustomAssert {
     private static final Logger logger = LoggerFactory.getLogger(CustomAssert.class.getName());
 
     @Step("Compare the actual value of {0} with the expected: {0} | {1}")
-    public static <T, E> void assertEquals(T act, E exp ) {
+    public static <T, E> void assertEquals(T actual, E expected ) {
         try {
-            Assert.assertEquals(act, exp);
-            logger.info(act +" is equal "+ exp);
+            Assert.assertEquals(actual, expected);
+            logger.info(actual +" is equal "+ expected);
         } catch (AssertionError e) {
             logger.error(e.toString());
             throw e;
