@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class BuyTicketsTests extends Config {
 
     @Test
-    public void homePageTest() throws InterruptedException {
+    public void buyDirectAtOnePerson() throws InterruptedException {
         addCookie();
         CartPage cart = new CartPage();
         TimetablePage timetable = new TimetablePage();
