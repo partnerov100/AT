@@ -44,7 +44,7 @@ public class BuyTicketsTests extends Config {
     }
 
     @Test
-    public void AllureTest(){
+    public void allureTest(){
         open("http://web-tmp.dev-k8s.movista.ru/");
         HomePage homePage = new HomePage();
         homePage.chooseTransport().search();
