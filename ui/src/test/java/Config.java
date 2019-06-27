@@ -41,11 +41,11 @@ public class Config {
 
     @BeforeClass
     public void setUp() throws MalformedURLException {
+        Configuration.driverManagerEnabled = false;
         switch (getRunType()) {
             case ("local"):
                 Configuration.startMaximized = true;
                 Configuration.reportsFolder = "target/allure-results";
-                Configuration.driverManagerEnabled = false;
                 Configuration.browserVersion = "75.0";
                 break;
             case ("server"):
